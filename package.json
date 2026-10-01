@@ -1,0 +1,1 @@
+{"name":"edgechat-chess","private":true,"type":"module","scripts":{"build":"node build.mjs"},"dependencies":{"react":"19.2.6","react-dom":"19.2.6","chess.js":"1.2.0","react-chessboard":"4.7.3","lucide-react":"0.468.0"},"devDependencies":{"esbuild":"0.27.3"}}

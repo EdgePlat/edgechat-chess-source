@@ -1,0 +1,499 @@
+.wood-chess { --wood-ink:#342b23; --wood-muted:#81766a; --wood-line:#ded5c7; height:100dvh; overflow:auto; color:var(--wood-ink); background:radial-gradient(ellipse at 35% 40%,#faf7f0 0%,#eeeadf 72%,#e8e2d6 100%); font-family:'Avenir Next',Avenir,system-ui,sans-serif; }
+.wood-chess button,.wood-chess a,.wood-chess input,.wood-chess select { -webkit-tap-highlight-color:transparent; }
+.wood-chess button { cursor:pointer; }
+.wood-chess button:disabled { opacity:.4; cursor:not-allowed; }
+.wood-chess button:focus-visible,.wood-chess a:focus-visible,.wood-chess select:focus-visible,.wood-chess input:focus-visible { outline:2px solid #8b6946; outline-offset:4px; }
+.wood-header { height:83px; margin:0 4%; border-bottom:1px solid var(--wood-line); display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.wood-back { display:flex; align-items:center; gap:9px; text-decoration:none; font-size:14px; color:#6d6257; }
+.wood-header-title { font-size:12px; letter-spacing:.24em; font-weight:600; }
+.wood-header-note { font-family:Georgia,serif; font-style:italic; color:var(--wood-muted); font-size:15px; }
+.wood-layout { max-width:1140px; margin:0 auto; padding:36px 40px 30px; display:grid; grid-template-columns:minmax(0,640px) minmax(260px,310px); gap:clamp(36px,6vw,86px); align-items:center; }
+.wood-play { min-width:0; }
+.wood-player { min-height:62px; display:flex; align-items:center; gap:12px; padding:0 5px; margin:0 0 14px; }
+.wood-frame + .wood-player { margin:17px 0 0; }
+.wood-avatar { width:42px; height:42px; border-radius:7px; display:grid; place-items:center; border:1px solid #c9beac; box-shadow:0 2px 5px #42301b12; background:#e1d8c6; }
+.wood-avatar.ebony { background:#5a493c; border-color:#45372b; }
+.wood-player strong { display:block; font-size:15px; font-weight:600; }
+.wood-player div > span { display:block; font-size:12px; color:var(--wood-muted); margin-top:3px; }
+.wood-captures { display:flex; flex:1; flex-wrap:wrap; justify-content:flex-end; gap:0; }
+.wood-turn { border:1px solid #d0c4b2; padding:5px 9px; border-radius:4px; font-size:12px; color:#6c5940; }
+.wood-frame { padding:clamp(13px,2.3vw,25px); border:1px solid #3e2819; border-radius:7px; background:linear-gradient(110deg,#52332344,#2d1c1377),url('./wood.jpg') center/cover,#543822; box-shadow:inset 0 1px 1px #e5bf8b88,inset 0 0 0 5px #ffffff07,0 5px 0 #382618,0 7px 0 #281c1433,0 20px 40px #49311c30,0 4px 12px #49311c22; }
+.wood-board { width:100%; aspect-ratio:1; }
+.wood-board-footer { display:flex; justify-content:space-between; gap:10px; align-items:center; color:#8d8173; font-size:12px; padding:11px 5px 0; }
+.wood-board-footer button { display:flex; align-items:center; gap:7px; color:#766858; background:transparent; border:0; padding:8px 0; font-size:12px; }
+.wood-panel { padding:12px 0; min-width:0; }
+.wood-eyebrow { font-size:12px; letter-spacing:.14em; font-weight:600; color:#8b7963; }
+.wood-heading h1 { margin:11px 0 8px; font:normal 62px/.98 Georgia,'Times New Roman',serif; letter-spacing:-.045em; }
+.wood-heading p { margin:14px 0 28px; font:italic 17px/1.5 Georgia,serif; color:#92816d; }
+.wood-status { display:flex; gap:12px; align-items:center; padding:18px 0; border-top:1px solid var(--wood-line); border-bottom:1px solid var(--wood-line); min-height:85px; }
+.wood-status-mark { font:32px Georgia,serif; width:34px; color:#755a39; }
+.wood-status strong { display:block; font-size:15px; font-weight:600; }
+.wood-status div > span { display:block; margin-top:5px; font-size:12px; color:var(--wood-muted); line-height:1.5; }
+.wood-score-heading { display:flex; justify-content:space-between; align-items:center; margin:23px 0 11px; }
+.wood-score-heading h2 { margin:0; font-size:14px; font-weight:600; }
+.wood-score-heading > span { font-size:12px; color:var(--wood-muted); font-variant-numeric:tabular-nums; }
+.wood-score { height:196px; overflow:auto; border:1px solid #ded5c6; border-radius:5px; background:#fffcf64d; scrollbar-width:thin; scrollbar-color:#c7baa6 transparent; }
+.wood-score-labels,.wood-move-row { display:grid; grid-template-columns:38px 1fr 1fr; padding:9px 13px; font-size:13px; }
+.wood-score-labels { position:sticky; top:0; background:#ece5d9; color:#8b7e6d; font-size:12px; border-bottom:1px solid #ded5c6; }
+.wood-move-row { font-variant-numeric:tabular-nums; }
+.wood-move-row:nth-child(odd) { background:#e9e0d12e; }
+.wood-move-row > span:first-child { color:#998a75; }
+.wood-move-row .latest { color:#724f27; font-weight:600; }
+.wood-empty { min-height:147px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:12px; }
+.wood-empty > span { font:italic 17px/1.5 Georgia,serif; color:#9b8c76; }
+.wood-empty small { color:#85755f; font-size:12px; }
+.wood-actions { display:flex; gap:10px; margin:16px 0; }
+.wood-actions button { display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid #d7ccbc; background:#f8f3e975; border-radius:5px; padding:12px 8px; font-size:13px; flex:1; color:#76634e; }
+.wood-actions button:hover:not(:disabled) { background:#e9dfce; }
+.wood-primary { border:1px solid #4c3523; width:100%; padding:14px 17px; border-radius:5px; color:#f6eddd; background:linear-gradient(110deg,#65482f,#4c3423); box-shadow:inset 0 1px #ffffff16,0 3px 6px #45301915; display:flex; align-items:center; justify-content:space-between; font-size:14px; font-weight:600; }
+.wood-primary:hover { background:#735136; }
+.wood-secondary { display:flex; justify-content:space-between; margin-top:13px; }
+.wood-secondary button { padding:6px 0; display:flex; align-items:center; gap:7px; background:none; border:0; color:#867763; font-size:12px; }
+.wood-credit { margin:25px 0 0; color:#867762; font-size:12px; line-height:1.9; }
+.wood-credit a { color:inherit; text-decoration:underline; text-underline-offset:3px; }
+.wood-error { color:#93392d; font-size:14px; line-height:1.5; padding:12px; border:1px solid #b85c4340; background:#f5e5d9; border-radius:4px; margin-top:12px; }
+.wood-error button { border:0; text-decoration:underline; background:none; }
+.wood-dialog { position:fixed; inset:0; margin:auto; width:min(430px,calc(100vw - 32px)); border:1px solid #c8b69c; border-radius:9px; padding:28px; background:#f4eee2; color:#3c2c1e; box-shadow:0 30px 100px #160d0666; max-height:90dvh; overflow:auto; }
+.wood-dialog::backdrop { background:#241b1466; backdrop-filter:blur(5px); }
+.wood-dialog-heading { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; }
+.wood-dialog h2 { font:normal 30px/1.2 Georgia,serif; margin:6px 0 0; }
+.wood-dialog-heading button { border:0; background:none; color:#7d6b56; }
+.wood-field { display:block; position:relative; font-size:14px; margin:20px 0; color:#65533f; }
+.wood-field select,.wood-field textarea { display:block; width:100%; padding:11px; border:1px solid #cabba5; border-radius:4px; margin-top:10px; background:#fcf8f0; color:#4a3827; font-size:14px; }
+.wood-field textarea { resize:vertical; }
+.wood-field > strong { float:right; font-size:13px; font-weight:500; }
+.wood-field input[type=range] { width:100%; display:block; margin:18px 0 8px; accent-color:#795836; }
+.wood-range-labels { display:flex; justify-content:space-between; font-size:12px; color:#97836b; }
+.wood-advanced { margin:20px 0; font-size:13px; color:#7b664d; }
+.wood-advanced summary { cursor:pointer; padding:6px 0; }
+.wood-dialog-note { font-size:12px; color:#92795c; margin:16px 0; }
+.wood-dialog > p { font-size:15px; color:#806a52; line-height:1.6; margin:15px 0; }
+.wood-promotion { display:flex; gap:10px; margin:22px 0; }
+.wood-promotion button { flex:1; border:1px solid #c4b08f; border-radius:6px; background:#e2ceb0; padding:5px; }
+.wood-text-button { background:none; border:0; padding:8px 0; text-decoration:underline; }
+.wood-sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+@media(min-width:1000px) and (min-height:700px) { .wood-layout { grid-template-columns:minmax(0,min(640px,calc(100dvh - 285px))) minmax(260px,310px); justify-content:center; } }
+@media(max-width:850px) { .wood-header-note { display:none; } .wood-header { height:68px; } .wood-layout { grid-template-columns:minmax(0,560px); max-width:620px; padding:24px; gap:30px; } .wood-panel { border-top:1px solid var(--wood-line); padding-top:25px; } .wood-heading { display:none; } .wood-score { height:155px; } .wood-credit { margin-top:15px; } }
+@media(max-width:420px) { .wood-layout { padding:20px 14px; } .wood-header-title { font-size:12px; letter-spacing:.15em; } .wood-player { gap:8px; } .wood-turn { font-size:12px; padding:5px; } .wood-captures img { width:15px; } .wood-board-footer { font-size:12px; } }
+@media(prefers-reduced-motion:reduce) { .wood-chess * { animation:none!important; transition:none!important; } }
+
+/* Transparent, consistently lit 3D wooden Staunton pieces. */
+.wood-piece-sprite { display:flex; align-items:flex-end; justify-content:center; flex-shrink:0; width:100%; height:100%; padding-bottom:6%; pointer-events:none; user-select:none; }
+.wood-piece-sprite svg { display:block; overflow:hidden; filter:drop-shadow(0 2px 1px #20120855); }
+.wood-avatar .wood-piece-sprite { width:37px; height:37px; }
+.wood-captures .wood-piece-sprite { width:23px; height:28px; }
+.wood-promotion .wood-piece-sprite { width:100%; height:auto; aspect-ratio:1; }
+@media(max-width:420px) { .wood-captures .wood-piece-sprite { width:18px; height:23px; } }
+
+/* Desktop host adapter; the accepted board dimensions and artwork stay intact. */
+* { box-sizing: border-box; }
+body { margin: 0; }
+.wood-back { cursor: pointer; font: inherit; border: 0; background: transparent; padding: 0; }
+.chess-host-pause { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: #f5efe6cc; }
+.chess-host-pause button { padding: 14px 24px; border: 1px solid #785239; border-radius: 8px; background: #fffaf2; color: #4b3221; font: 600 16px Georgia, serif; cursor: pointer; }
+
+/* Keep the whole desktop game within the available host viewport. */
+.wood-difficulty { display:grid; grid-template-columns:auto 1fr; gap:5px 12px; align-items:center; margin:12px 0; font-size:13px; }
+.wood-difficulty select { min-width:0; width:100%; padding:8px; border:1px solid #cbbda9; border-radius:5px; background:#fcf8f0; color:#59432d; font:inherit; }
+.wood-difficulty small { grid-column:1 / -1; font-size:11px; color:var(--wood-muted); }
+@media(min-width:851px) and (min-height:560px) {
+  .wood-chess { overflow:hidden; }
+  .wood-header { height:48px; margin:0 3%; }
+  .wood-back { margin-left:48px; }
+  .wood-header-note { font-size:13px; }
+  .wood-layout { height:100dvh; max-width:1280px; padding:24px 30px 16px; grid-template-columns:minmax(0,min(760px,calc(100dvh - 156px))) minmax(210px,240px); justify-content:center; gap:clamp(24px,3vw,40px); align-items:center; }
+  .wood-player { min-height:28px; margin:0 0 6px; gap:9px; }
+  .wood-frame + .wood-player { margin:6px 0 0; }
+  .wood-avatar { width:26px; height:26px; }
+  .wood-avatar .wood-piece-sprite { width:24px; height:24px; }
+  .wood-player strong { font-size:13px; }
+  .wood-player div > span { font-size:11px; margin-top:1px; }
+  .wood-frame { padding:14px; }
+  .wood-board-footer { padding:4px 5px 0; font-size:11px; }
+  .wood-board-footer button { padding:5px 0; }
+  .wood-panel { height:100%; min-height:0; max-height:600px; padding:0; display:flex; flex-direction:column; }
+  .wood-heading h1 { font-size:32px; margin:4px 0 6px; }
+  .wood-heading p { display:none; }
+  .wood-eyebrow { font-size:10px; }
+  .wood-status { min-height:58px; padding:9px 0; }
+  .wood-status strong { font-size:14px; }
+  .wood-status div > span { margin-top:2px; font-size:11px; }
+  .wood-difficulty { margin:10px 0 3px; }
+  .wood-score-heading { margin:10px 0 7px; }
+  .wood-score { flex:1; min-height:48px; height:auto; }
+  .wood-empty { min-height:0; height:calc(100% - 34px); gap:5px; padding:8px; }
+  .wood-empty > span { font-size:15px; }
+  .wood-empty small { font-size:11px; }
+  .wood-actions { margin:10px 0; }
+  .wood-actions button { padding:9px 8px; }
+  .wood-primary { padding:11px 14px; }
+  .wood-secondary { margin-top:6px; }
+  .wood-credit { margin-top:8px; font-size:10px; line-height:1.5; }
+  .wood-error { margin:6px 0; padding:6px; font-size:12px; }
+  .wood-error p { margin:0; }
+}
+
+/* Give the player row breathing room beneath the frame. */
+.wood-frame + .wood-player { margin-top:20px; margin-bottom:12px; }
+@media(min-width:851px) and (min-height:560px) {
+  .wood-layout { padding-bottom:24px; }
+  .wood-frame + .wood-player { min-height:36px; margin-top:18px; margin-bottom:10px; }
+  .wood-secondary { flex-wrap:wrap; column-gap:12px; row-gap:4px; }
+}
+
+/* Quiet, single-line attribution below the game. */
+.wood-credit { grid-column:1 / -1; margin:0; text-align:center; font-size:10px; line-height:16px; color:#948675; white-space:nowrap; }
+.wood-credit > span { margin:0 5px; }
+@media(min-width:851px) and (min-height:560px) {
+  .wood-layout { position:relative; }
+  .wood-credit { position:absolute; bottom:5px; left:0; right:0; margin:0; font-size:10px; }
+}
+
+/* Compact controls stay at the top of the secondary column. */
+.wood-toolbar { display:flex; justify-content:flex-end; gap:8px; margin-bottom:22px; flex-shrink:0; }
+.wood-difficulty-menu { position:relative; }
+.wood-difficulty-menu summary, .wood-new-game { display:flex; align-items:center; justify-content:center; gap:6px; min-height:34px; padding:7px 10px; border:1px solid #cebdab; border-radius:5px; background:#f8f2e8; color:#6b503a; font:500 11px/18px 'Avenir Next',Avenir,system-ui,sans-serif; cursor:pointer; white-space:nowrap; }
+.wood-difficulty-menu summary { list-style:none; }
+.wood-difficulty-menu summary::-webkit-details-marker { display:none; }
+.wood-difficulty-menu summary:focus-visible { outline:2px solid #8b6946; outline-offset:3px; }
+.wood-new-game { background:#65452f; border-color:#65452f; color:#fff6e9; }
+.wood-difficulty-popover { position:absolute; top:calc(100% + 8px); right:0; width:230px; padding:14px; z-index:20; border:1px solid #d6c6b4; border-radius:8px; background:#fcf7ef; box-shadow:0 8px 24px #49311c26; }
+.wood-difficulty-popover .wood-difficulty { margin:0; }
+.wood-credit { text-align:right; }
+@media(min-width:851px) and (min-height:560px) {
+ .wood-credit { left:auto; right:30px; text-align:right; }
+}
+
+/* A quiet utility column, sized by its content rather than the board. */
+.wood-panel { height:auto; max-height:none; display:flex; flex-direction:column; align-self:start; padding:0; }
+.wood-toolbar { margin-bottom:18px; justify-content:space-between; }
+.wood-status { min-height:0; padding:10px 0; gap:8px; border-top:0; border-bottom:1px solid var(--wood-line); }
+.wood-status-mark { width:22px; font-size:22px; }
+.wood-status strong { font-size:12px; font-weight:500; }
+.wood-score-heading { margin:18px 0 8px; }
+.wood-score-heading h2 { font-size:12px; font-weight:500; }
+.wood-score { flex:none; height:auto; min-height:0; max-height:190px; border:0; border-radius:0; background:transparent; }
+.wood-score-labels,.wood-move-row { padding:7px 8px; font-size:11px; }
+.wood-score-labels { background:#eae3d8; border-bottom:0; z-index:1; }
+.wood-empty { min-height:0; height:auto; padding:16px 8px; align-items:flex-start; }
+.wood-empty small { font-size:11px; color:#9b8e7f; }
+.wood-actions { gap:14px; margin:16px 0 0; padding-top:12px; border-top:1px solid var(--wood-line); }
+.wood-actions button { flex:none; border:0; background:transparent; padding:5px 0; font-size:11px; gap:5px; }
+.wood-actions button svg,.wood-secondary button svg { width:13px; height:13px; }
+.wood-secondary { justify-content:space-between; margin-top:8px; }
+.wood-secondary button { font-size:11px; gap:5px; }
+@media(min-width:851px) and (min-height:560px) {
+ .wood-panel { height:auto; max-height:none; margin-top:34px; }
+ .wood-score { flex:none; height:auto; min-height:0; max-height:min(190px,28dvh); }
+ .wood-empty { height:auto; min-height:0; padding:16px 8px; }
+ .wood-actions button { padding:5px 0; }
+}
+@media(max-width:850px) {
+ .wood-panel { padding-top:18px; }
+}
+
+.wood-panel .wood-credit { position:static; grid-column:auto; margin:20px 0 0; padding-top:10px; border-top:1px solid var(--wood-line); text-align:left; font-size:10px; line-height:16px; white-space:nowrap; }
+.wood-panel .wood-credit > span { margin:0 3px; }
+
+/* Player identity belongs with the readable game controls. */
+.wood-player-summary { margin:6px 0 14px; }
+.wood-player-summary .wood-player { min-height:42px; margin:0; padding:0; gap:8px; flex-wrap:wrap; }
+.wood-player-summary .wood-avatar { width:30px; height:34px; }
+.wood-player-summary .wood-player strong { font-size:15px; }
+.wood-player-summary .wood-player div > span { font-size:12px; }
+.wood-player-summary .wood-turn { margin-left:auto; font-size:12px; padding:5px 7px; }
+.wood-player-summary .wood-captures { flex-basis:100%; order:3; justify-content:flex-start; }
+.wood-player-summary .wood-captures:empty { display:none; }
+.wood-panel .wood-toolbar { gap:8px; }
+.wood-panel .wood-difficulty-menu summary,.wood-panel .wood-new-game { font-size:13px; padding:8px; min-height:36px; }
+.wood-panel .wood-status strong { font-size:15px; }
+.wood-panel .wood-score-heading h2 { font-size:14px; }
+.wood-panel .wood-score-heading > span { font-size:13px; }
+.wood-panel .wood-score-labels,.wood-panel .wood-move-row { font-size:13px; padding:8px; }
+.wood-panel .wood-empty small { font-size:13px; }
+.wood-panel .wood-actions button,.wood-panel .wood-secondary button { font-size:13px; }
+.wood-panel .wood-actions button svg,.wood-panel .wood-secondary button svg { width:15px; height:15px; }
+
+/* Consistent two-column controls, with shared sizing and alignment. */
+.wood-panel .wood-toolbar,.wood-panel .wood-actions,.wood-panel .wood-secondary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.wood-panel .wood-toolbar { margin:0 0 22px; }
+.wood-panel .wood-difficulty-menu summary,.wood-panel .wood-new-game,
+.wood-panel .wood-actions button,.wood-panel .wood-secondary button { box-sizing:border-box; width:100%; height:38px; min-height:38px; display:flex; align-items:center; justify-content:center; gap:7px; margin:0; padding:0 8px; border:1px solid #cdbda966; border-radius:7px; background:#faf6ee80; color:#715944; font:500 12px/1 'Avenir Next',Avenir,system-ui,sans-serif; white-space:nowrap; transition:background 140ms ease,border-color 140ms ease,box-shadow 140ms ease; }
+.wood-panel .wood-new-game { background:#634630; border-color:#634630; color:#fff7eb; box-shadow:inset 0 1px 0 #ffffff18,0 1px 2px #38281912; }
+.wood-panel .wood-difficulty-menu summary:hover, .wood-panel .wood-actions button:hover:not(:disabled), .wood-panel .wood-secondary button:hover:not(:disabled) { background:#ede3d5; border-color:#bda88d; }
+.wood-panel .wood-new-game:hover { background:#765338; border-color:#765338; }
+.wood-panel .wood-actions button:disabled,.wood-panel .wood-secondary button:disabled { opacity:1; color:#b8aa9a; background:#f4ede440; border-color:#d8cbbc55; }
+.wood-panel .wood-toolbar svg,.wood-panel .wood-actions svg,.wood-panel .wood-secondary svg { width:15px; height:15px; flex:0 0 15px; stroke-width:1.7; }
+.wood-panel .wood-actions { margin:18px 0 0; padding-top:16px; }
+.wood-panel .wood-secondary { margin:8px 0 0; }
+@media(min-width:851px) and (min-height:560px) {
+ .wood-play { align-self:start; }
+ .wood-panel { margin-top:0; }
+ .wood-play > .wood-player:first-child { min-height:38px; margin-bottom:10px; }
+}
+
+/* ---- the first screen: a place to choose a friend or the engine ----
+   Same ink, same paper, same wood as the board it leads to: this is the game's own front door,
+   not a panel bolted in front of it. */
+.chess-home { display:grid; place-items:center; padding:24px; }
+/* The grid above centres by shrinking to content, which measured 853px while the two columns
+   needed 894 and wrapped on a 1400px window. An explicit width is what keeps them side by side. */
+.chess-home-layout { display:flex; align-items:center; justify-content:center; gap:clamp(24px,4vw,56px);
+  flex-wrap:wrap; width:100%; max-width:920px; }
+.chess-home-frame { flex:none; }
+.chess-home-frame .wood-board { line-height:0; }
+.chess-home-card { width:min(420px,100%); text-align:left; }
+.chess-home-card h1 { font-family:Georgia,serif; font-size:clamp(34px,4vw,46px); font-weight:400; margin:0 0 10px; letter-spacing:-.01em; }
+.chess-home-sub { color:var(--wood-muted); font-size:15px; margin:0 0 30px; line-height:1.5; }
+
+/* Waiting for an invitation to be answered.
+   Three dots take the breath in turn, and the board behind them keeps a slow warm ring. Same vocabulary
+   as the in-game waiting dot below — a breath, not a spinner: nothing is loading, a person is deciding. */
+.chess-home-wait { display:flex; gap:7px; margin:-2px 0 22px; }
+.chess-home-wait i { width:7px; height:7px; border-radius:50%; background:#b98a4e;
+  animation:chess-wait-breath 1.5s ease-in-out infinite; }
+.chess-home-wait i:nth-child(2) { animation-delay:.22s; }
+.chess-home-wait i:nth-child(3) { animation-delay:.44s; }
+@keyframes chess-wait-breath { 0%,70%,100% { opacity:.24; transform:scale(.8); } 30% { opacity:1; transform:scale(1); } }
+
+.chess-home-layout.is-waiting .wood-frame { animation:chess-wait-ring 3.2s ease-in-out infinite; }
+@keyframes chess-wait-ring {
+  0%,100% { box-shadow:inset 0 1px 1px #e5bf8b88, inset 0 0 0 5px #ffffff07, 0 0 0 0 #b98a4e00,
+    0 5px 0 #382618, 0 7px 0 #281c1433, 0 20px 40px #49311c30, 0 4px 12px #49311c22; }
+  50% { box-shadow:inset 0 1px 1px #e5bf8b88, inset 0 0 0 5px #ffffff07, 0 0 0 4px #b98a4e44,
+    0 5px 0 #382618, 0 7px 0 #281c1433, 0 20px 40px #49311c30, 0 4px 12px #49311c22; }
+}
+.chess-home-choices { display:grid; gap:12px; }
+.chess-home-choice { display:flex; align-items:center; gap:14px; width:100%; text-align:left; padding:16px 18px;
+  border:1px solid #d7ccb9; border-radius:9px; background:#fffdf8; color:var(--wood-ink);
+  box-shadow:0 1px 0 #42301b0d, 0 6px 16px #49311c0f; transition:border-color .15s, transform .15s; }
+.chess-home-choice:hover:not(:disabled) { border-color:#8b6946; transform:translateY(-1px); }
+.chess-home-choice span { flex:1; min-width:0; }
+.chess-home-choice strong { display:block; font-size:15px; font-weight:600; }
+.chess-home-choice em { display:block; font-style:normal; font-size:12.5px; color:var(--wood-muted); margin-top:3px; }
+/* The game you left, offered back. It sits above the two ways to start a new one and has to read as the
+ * first thing on the screen without a second colour: a warmer ground and a line down its leading edge. */
+.chess-home-resume { background:#fbf3e2; border-color:#c8ab7d; box-shadow:0 1px 0 #42301b0d, 0 8px 20px #49311c14; }
+.chess-home-resume:hover:not(:disabled) { border-color:#8b6946; }
+.chess-home-resume::before { content:''; align-self:stretch; width:3px; margin:-16px 0 -16px -18px; border-radius:9px 0 0 9px; background:#b08d57; }
+.chess-home-peers { display:grid; gap:9px; }
+.chess-home-peer { display:flex; align-items:center; gap:11px; width:100%; text-align:left; padding:13px 16px;
+  border:1px solid #d7ccb9; border-radius:8px; background:#fffdf8; color:var(--wood-ink); }
+.chess-home-peer:hover:not(:disabled) { border-color:#8b6946; }
+.chess-home-peer strong { flex:1; font-size:14.5px; font-weight:600; }
+.chess-home-peer em { font-style:normal; font-size:12px; color:var(--wood-muted); }
+.chess-home-dot { width:8px; height:8px; border-radius:50%; background:#c4b9a8; flex:none; }
+.chess-home-dot.on { background:#6f9457; box-shadow:0 0 0 3px #6f945722; }
+.chess-home-empty { color:var(--wood-muted); font-size:13.5px; line-height:1.55; margin:6px 0 4px; }
+.chess-home-row { display:flex; gap:8px; justify-content:flex-start; margin-top:6px; flex-wrap:wrap; }
+.chess-home-ghost { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; font-size:13px;
+  border:1px solid #d7ccb9; border-radius:7px; background:transparent; color:#6d6257; }
+.chess-home-ghost:hover { border-color:#8b6946; color:var(--wood-ink); }
+.chess-home-problem { margin:18px 0 0; font-size:13.5px; color:#8c4a3a; line-height:1.5; }
+
+/* In an online game the toolbar has nothing to set — it says who you are playing instead. */
+.wood-online-tag { font-size:12.5px; color:var(--wood-muted); border:1px solid #d7ccb9; border-radius:99px; padding:6px 12px; }
+
+/* ---- whose turn it is, said three times without interrupting anyone ----
+   A modal would stop the game to say something the board could show. So: the active player's row lights
+   up, the status line changes weight and colour, and the board itself gets a warm ring when the move is
+   yours. Three quiet signals beat one loud one, and none of them takes the screen away. */
+/* The player row stays as it is: the board's ring and the waiting dot carry the signal;
+   the row does not need to become a different component to say whose turn it is. */
+
+/* Waiting for the other person: a slow breath, never a spinner — nothing is loading, someone is thinking. */
+.wood-player.is-waiting .wood-avatar { position:relative; }
+.wood-player.is-waiting .wood-avatar::after { content:''; position:absolute; right:-3px; bottom:-3px; width:9px; height:9px;
+  border-radius:50%; background:#b98a4e; box-shadow:0 0 0 2px #fffdf8; animation:wood-breath 1.8s ease-in-out infinite; }
+@keyframes wood-breath { 0%,100% { opacity:.35; transform:scale(.85); } 50% { opacity:1; transform:scale(1); } }
+
+.wood-status { transition:color .2s; }
+.wood-status.is-yours strong { color:#5d3f24; font-weight:600; }
+.wood-status.is-yours .wood-status-mark { color:#8b6946; }
+.wood-status.is-waiting strong { color:var(--wood-muted); font-weight:500; }
+
+/* Your move: the board wears a ring. Absence of the ring is the other half of the message. */
+.wood-frame.is-your-turn { box-shadow:inset 0 1px 1px #e5bf8b88, inset 0 0 0 5px #ffffff07, 0 0 0 3px #b98a4e55,
+  0 5px 0 #382618, 0 7px 0 #281c1433, 0 20px 40px #49311c30, 0 4px 12px #49311c22; }
+.wood-frame { transition:box-shadow .25s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wood-player.is-waiting .wood-avatar::after { animation:none; opacity:.9; }
+  .chess-home-wait i { animation:none; opacity:.55; }
+  .chess-home-layout.is-waiting .wood-frame { animation:none; }
+  .wood-frame { transition:none; }
+}
+
+/* ---------------------------------------------------------------- dark
+ * Everything above is the light theme and is left exactly as it was — this layer only repaints, so a
+ * regression here cannot reach the light one. The switch is `data-theme` on the document, set from the
+ * host's `cmd:'theme'` (main.tsx). It is NOT `prefers-color-scheme`: inside the sandbox that follows
+ * macOS rather than the appearance chosen in the app, which is the whole reason the host sends it.
+ *
+ * The room goes dark; the board stays timber, one stop down. Ivory against ebony is what the game is
+ * actually read on, and changing the squares to greys would cost that for no gain.
+ */
+html[data-theme="dark"] .wood-chess {
+  --wood-ink:#e8e4de; --wood-muted:#948f88; --wood-line:#302f2d;
+  color:var(--wood-ink);
+  background:radial-gradient(ellipse at 35% 40%,#161616 0%,#111111 72%,#0c0c0c 100%);
+}
+html[data-theme="dark"] .wood-chess button:focus-visible,
+html[data-theme="dark"] .wood-chess a:focus-visible,
+html[data-theme="dark"] .wood-chess select:focus-visible,
+html[data-theme="dark"] .wood-chess input:focus-visible { outline-color:#c69a68; }
+
+/* the board and the two people at it */
+html[data-theme="dark"] .wood-frame { border-color:#191007; background:linear-gradient(110deg,#3a241844,#1d120c88),url(./assets/wood.jpg); }
+html[data-theme="dark"] .wood-frame.is-your-turn { box-shadow:0 0 0 1px #c69a6866, 0 0 22px #c69a6833; }
+/* The waiting animation in the dark room: the same breath, repainted. The light frame's shadow stack is a
+   carved edge that does not exist here, so the dark ring is its own two stops rather than that stack ±4px. */
+html[data-theme="dark"] .chess-home-wait i { background:#c69a68; }
+html[data-theme="dark"] .chess-home-layout.is-waiting .wood-frame { animation:chess-wait-ring-dark 3.2s ease-in-out infinite; }
+@keyframes chess-wait-ring-dark {
+  0%,100% { box-shadow:0 0 0 1px #c69a6822, 0 0 12px #c69a6811; }
+  50% { box-shadow:0 0 0 1px #c69a6877, 0 0 26px #c69a6844; }
+}
+html[data-theme="dark"] .wood-avatar { background:#2b2a28; border-color:#3a3937; }
+html[data-theme="dark"] .wood-avatar.ebony { background:#201f1e; border-color:#161615; }
+html[data-theme="dark"] .wood-turn { border-color:#3c3b38; color:#c3b294; }
+html[data-theme="dark"] .wood-status-mark { color:#c9a878; }
+
+/* the move list: a sunk panel rather than a sheet of paper */
+html[data-theme="dark"] .wood-score { border-color:#2a2927; background:#161615; }
+html[data-theme="dark"] .wood-score-labels { background:#1c1c1b; color:#928d85; border-bottom-color:#2a2927; }
+html[data-theme="dark"] .wood-move-row:nth-child(odd) { background:#ffffff08; }
+html[data-theme="dark"] .wood-move-row > span:first-child { color:#837e76; }
+html[data-theme="dark"] .wood-move-row .latest { color:#e3b874; }
+html[data-theme="dark"] .wood-empty > span { color:#878179; }
+html[data-theme="dark"] .wood-empty small { color:#78736c; }
+
+/* buttons */
+html[data-theme="dark"] .wood-actions button { border-color:#35342f; background:#1c1c1b; color:var(--wood-ink); }
+html[data-theme="dark"] .wood-actions button:hover:not(:disabled) { background:#262523; }
+html[data-theme="dark"] .wood-primary { border-color:#7a5836; color:#f7ecd9; background:linear-gradient(110deg,#6d4c30,#54371f); }
+html[data-theme="dark"] .wood-primary:hover { background:#7d5838; }
+
+/* dialogs */
+html[data-theme="dark"] .wood-dialog { border-color:#34332f; background:#181817; color:var(--wood-ink); }
+html[data-theme="dark"] .wood-dialog::backdrop { background:#0a07049c; }
+
+/* the home screen */
+html[data-theme="dark"] .chess-home-choice { border-color:#333230; background:#191918; box-shadow:0 1px 0 #00000040, 0 6px 16px #00000047; }
+html[data-theme="dark"] .chess-home-choice:hover:not(:disabled) { border-color:#a07a4e; }
+html[data-theme="dark"] .chess-home-resume { background:#231f16; border-color:#6b5432; box-shadow:0 1px 0 #00000040, 0 8px 20px #0000004f; }
+html[data-theme="dark"] .chess-home-resume::before { background:#c19a5e; }
+html[data-theme="dark"] .chess-home-peer { border-color:#333230; background:#191918; }
+html[data-theme="dark"] .chess-home-peer:hover:not(:disabled) { border-color:#a07a4e; }
+html[data-theme="dark"] .chess-home-dot { background:#454441; }
+html[data-theme="dark"] .chess-home-dot.on { background:#7fa763; box-shadow:0 0 0 3px #7fa76329; }
+html[data-theme="dark"] .chess-home-ghost { border-color:#333230; color:#948f88; }
+html[data-theme="dark"] .chess-home-ghost:hover { border-color:#a07a4e; color:var(--wood-ink); }
+
+/* Surfaces found by a contrast probe over every rendered text node — the Difficulty disclosure and its
+ * popover, the new-game dialog's fields, the panel's own button skin, and a `.wood-text-button` that had
+ * no colour of its own and so fell back to the browser's black. */
+html[data-theme="dark"] .wood-panel .wood-actions button,
+html[data-theme="dark"] .wood-panel .wood-secondary button,
+html[data-theme="dark"] .wood-panel .wood-actions button:hover:not(:disabled),
+html[data-theme="dark"] .wood-panel .wood-secondary button:hover:not(:disabled) { background:#262523; border-color:#4b4a46; }
+html[data-theme="dark"] .wood-panel .wood-actions button:disabled,
+html[data-theme="dark"] .wood-panel .wood-secondary button:disabled { color:#67635d; background:#161615; border-color:#2b2a28; }
+html[data-theme="dark"] .wood-panel .wood-new-game { background:#7a5735; border-color:#7a5735; color:#fff7eb; box-shadow:inset 0 1px 0 #ffffff14,0 1px 2px #00000040; }
+html[data-theme="dark"] .wood-panel .wood-new-game:hover { background:#8a6440; border-color:#8a6440; }
+html[data-theme="dark"] .wood-secondary button { color:#a1968a; }
+
+html[data-theme="dark"] .wood-field select,
+html[data-theme="dark"] .wood-field textarea { border-color:#3a3934; background:#141413; color:#e2ded8; }
+html[data-theme="dark"] .wood-field { color:#aea89f; }
+html[data-theme="dark"] .wood-field > strong { color:#d8c9ae; }
+html[data-theme="dark"] .wood-field input[type=range] { accent-color:#c1904f; }
+html[data-theme="dark"] .wood-advanced summary { color:#aea89f; }
+/* It had no colour of its own, so in dark it inherited the browser's black on a near-black dialog. */
+html[data-theme="dark"] .wood-text-button { color:#c2a173; }
+html[data-theme="dark"] .wood-dialog-note { color:#948f88; }
+
+html[data-theme="dark"] .wood-status.is-yours strong { color:#f0c884; }
+html[data-theme="dark"] .wood-status.is-yours .wood-status-mark { color:#d3a86a; }
+html[data-theme="dark"] .wood-status.is-waiting strong { color:#a9a49c; }
+html[data-theme="dark"] .wood-panel .wood-actions button:disabled,
+html[data-theme="dark"] .wood-panel .wood-secondary button:disabled { color:#8b867e; background:#181817; border-color:#2e2d2b; }
+html[data-theme="dark"] .wood-empty > span { color:#a29c93; }
+html[data-theme="dark"] .wood-empty small { color:#9a948c; }
+html[data-theme="dark"] .wood-dialog-note { color:#a9a49c; }
+html[data-theme="dark"] .wood-setting small { color:#a9a49c; }
+html[data-theme="dark"] .wood-eyebrow { color:#a9a49c; }
+html[data-theme="dark"] .wood-dialog p { color:#b4afa7; }
+
+/* ---------------------------------------------------------------- the settings sheet
+ * Shapes match the host app's audio panel, the same control in the same corner: 300px, 18px corners,
+ * 20px padding, a heading row with a close button, one labelled section per setting, a dim note. The
+ * palette is the board's, because a sealed game cannot reach the host's tokens.
+ */
+/* The gear itself: the icon alone, the size of the host's audio toggle (38px, its DOM sibling) with a
+   squircle corner. */
+.wood-settings-menu { position:relative; }
+.wood-settings-menu summary { display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box;
+  width:38px; height:38px; padding:0; border:1px solid #d7ccb9; border-radius:12px; background:#fffdf8;
+  color:#6d5a44; list-style:none; cursor:pointer; box-shadow:0 1px 0 #42301b0d, 0 4px 12px #49311c12; }
+.wood-settings-menu summary::-webkit-details-marker { display:none; }
+.wood-settings-menu summary svg { display:block; width:17px; height:17px; }
+.wood-settings-menu summary:hover { border-color:#b79b78; color:var(--wood-ink); }
+.wood-settings-menu[open] summary { border-color:#b79b78; background:#f7f0e4; }
+.wood-settings-menu summary:focus-visible { outline:2px solid #8b6946; outline-offset:3px; }
+
+/* Two buttons side by side; the marked one is whatever is on screen, so there is nothing left
+   to explain about following the app — you are looking at the answer. */
+.wood-settings-pair { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.wood-settings-pair button { padding:9px 4px; font-size:13px; font-weight:550; border:1px solid #ddd3c2;
+  border-radius:9px; background:#fdfaf3; color:var(--wood-ink); }
+.wood-settings-pair button:hover:not([aria-checked="true"]) { background:#f3ece0; }
+.wood-settings-pair button[aria-checked="true"] { border-color:#b08d57; background:#f7efdf; }
+
+/* Six named levels, instead of a dropdown that repeated its own value in the label beside it and a note
+   long enough to wrap and clip. */
+.wood-settings-levels { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.wood-settings-levels button { display:flex; flex-direction:column; align-items:flex-start; gap:1px;
+  padding:8px 10px; border:1px solid #ddd3c2; border-radius:9px; background:#fdfaf3; color:var(--wood-ink); text-align:left; }
+.wood-settings-levels button strong { font-size:12.5px; font-weight:600; }
+.wood-settings-levels button span { font-size:11px; color:#675d50; font-variant-numeric:tabular-nums; }
+.wood-settings-levels button:hover:not([aria-checked="true"]) { background:#f3ece0; }
+.wood-settings-levels button[aria-checked="true"] { border-color:#b08d57; background:#f7efdf; }
+
+html[data-theme="dark"] .wood-settings-menu summary { border-color:#35342f; background:#1c1c1b; color:#bfb8ad;
+  box-shadow:0 1px 0 #00000040, 0 4px 12px #00000047; }
+html[data-theme="dark"] .wood-settings-menu summary:hover { border-color:#5b4c3c; color:var(--wood-ink); }
+html[data-theme="dark"] .wood-settings-menu[open] summary { border-color:#5b4c3c; background:#262523; }
+html[data-theme="dark"] :is(.wood-settings-pair,.wood-settings-levels) button { border-color:#35342f; background:#201f1e; }
+html[data-theme="dark"] :is(.wood-settings-pair,.wood-settings-levels) button:hover:not([aria-checked="true"]) { background:#282726; }
+html[data-theme="dark"] :is(.wood-settings-pair,.wood-settings-levels) button[aria-checked="true"] { border-color:#8a6c40; background:#2a2419; }
+html[data-theme="dark"] .wood-settings-levels button span { color:#a09b93; }
+
+/* The home screen has no toolbar, so the gear takes the corner of the screen itself. */
+.chess-home { position:relative; }
+.chess-home-corner { position:absolute; top:18px; right:22px; z-index:30; }
+.wood-settings-panel { position:absolute; top:calc(100% + 8px); right:0; z-index:20;
+  box-sizing:border-box; width:min(300px,calc(100vw - 32px)); padding:20px;
+  border:1px solid #d7ccb9; border-radius:18px; background:#fffdf8; color:var(--wood-ink);
+  box-shadow:0 18px 44px #42301b1f, 0 2px 8px #42301b14; }
+.wood-settings-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px; }
+.wood-settings-heading h2 { margin:0; font-size:16px; font-weight:600; }
+.wood-settings-close { display:inline-flex; align-items:center; justify-content:center; flex:0 0 30px;
+  width:30px; height:30px; padding:0; border:0; border-radius:50%; background:transparent; color:var(--wood-muted); }
+.wood-settings-close:hover { background:#efe7d9; color:var(--wood-ink); }
+.wood-settings-section { margin:18px 0 0; }
+.wood-settings-section:first-of-type { margin-top:0; }
+.wood-settings-label { display:flex; align-items:center; gap:8px; font-size:13px; margin-bottom:10px; }
+.wood-settings-label label { flex:1; font-weight:550; }
+
+/* Appearance is a choice between named options, so it reads as a list of rows with one of them taken —
+   the shell's own appearance picker is a radiogroup with a mark on the chosen one, not a colour swatch. */
+
+html[data-theme="dark"] .wood-settings-panel { border-color:#34332f; background:#1b1b1a;
+  box-shadow:0 18px 44px #00000073, 0 2px 8px #00000059; }
+html[data-theme="dark"] .wood-settings-close:hover { background:#2a2927; }
+html[data-theme="dark"] .wood-settings-section select { border-color:#3a3934; background:#141413; color:#e2ded8; }
+html[data-theme="dark"] .wood-settings-choices button:hover:not([aria-checked="true"]) { background:#242322; }
+html[data-theme="dark"] .wood-settings-choices button[aria-checked="true"] { border-color:#6b5432; background:#262218; }
+html[data-theme="dark"] .wood-settings-choices button span { color:#a09b93; }
+html[data-theme="dark"] .wood-settings-note { color:#a9a49c; }
